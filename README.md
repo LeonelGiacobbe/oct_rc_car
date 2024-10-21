@@ -1,7 +1,6 @@
 ### Currently working on:
 ```
 1) Filtering the Pointcloud readings to be more accurate
-2) Getting wireless joystick to work
 ```
 ### Main launch file for manual drive and slam
 ```
