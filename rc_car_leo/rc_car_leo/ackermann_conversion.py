@@ -1,0 +1,35 @@
+import rclpy
+from geometry_msgs.msg import Twist
+from ackermann_msgs.msg import AckermannDriveStamped
+
+def twist_callback(msg):
+	linear_speed = msg.linear.x * 1.5 # 0.5 * multiplier. m/2
+	angular_speed = msg.angular.z
+
+	steering_angle = - angular_speed / (wheelbase / 2) # radians
+	
+	ack_msg = AckermannDriveStamped()
+	ack_msg.drive.speed = linear_speed
+	ack_msg.drive.steering_angle = steering_angle
+	ack_msg.drive.acceleration = 0.8
+	pub.publish(ack_msg)
+
+
+def main(args=None):
+	rclpy.init(args=args)
+	conversion_node = rclpy.create_node('ackermann_conversion')
+	
+	global pub
+	pub = conversion_node.create_publisher(AckermannDriveStamped, '/ackermann_cmd', 10)
+	sub = conversion_node.create_subscription(Twist, 'cmd_vel', twist_callback, 10)
+
+	global wheelbase, track_width
+
+	wheelbase = 0.1
+	track_width = 3.81
+
+	rclpy.spin(conversion_node)
+	rclpy.shutdown()
+
+if __name__ == '__main__':
+	main()

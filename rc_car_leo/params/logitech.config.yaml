@@ -1,0 +1,13 @@
+teleop_twist_joy:
+  ros__parameters:
+    axis_linear:
+      x: 7  # Uses the vertical axis of the left joystick for linear movement
+    scale_linear:
+      x: 0.5  # Speed scaling for linear movement
+    axis_angular:
+      yaw: 0  # Typically, the horizontal axis of the left joystick for angular rotation
+    scale_angular:
+      yaw: 0.5  # Speed scaling for angular movement
+    enable_button: -1  # Set to the number of the button to enable the joystick, or -1 if always enabled
+    enable_turbo_button: -1  # Turbo mode button, or -1 if not used
+    joy_dev: "/dev/input/event11"
